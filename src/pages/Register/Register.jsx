@@ -1,14 +1,41 @@
 import { Link } from "react-router-dom";
 import Navbar from "../shared/Navbar/Navbar";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Register = () => {
+
+    const {createUser} = useContext(AuthContext);
+
+
+    const handleRegister = e =>{
+        e.preventDefault();
+        console.log(e.currentTarget);
+        const form = new FormData(e.currentTarget);
+        
+        const name = form.get('name');
+        const photoUrl = form.get('photo');
+        const email = form.get('email');
+        const password = form.get('password');
+        console.log(name, photoUrl, email, password);
+
+        // create user
+        createUser(email, password)
+        .then(result=>{
+            console.log(result.user);
+        })
+        .then(error =>{
+            console.log(error);
+        })
+    };
+
     return (
         <div className="mt-10">
             <Navbar></Navbar>
             <div className="bg-base-200 max-w-3xl mx-auto p-20 mt-14 mb-6">
                 <h2 className="text-4xl text-[#403F3F] font-semibold text-center mb-12">Register your account</h2>
                 <hr />
-                <form className="card-body mt-10">
+                <form onSubmit={handleRegister} className="card-body mt-10">
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text text-[#403F3F] text-xl font-semibold">Your name</span>
@@ -25,13 +52,13 @@ const Register = () => {
                         <label className="label">
                             <span className="label-text text-[#403F3F] text-xl font-semibold">Email address</span>
                         </label>
-                        <input type="email" placeholder="Enter your email address" className="input h-16" required />
+                        <input type="email" name="email" placeholder="Enter your email address" className="input h-16" required />
                     </div>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text text-xl text-[#403F3F] font-semibold">Password </span>
                         </label>
-                        <input type="password" placeholder="Enter your password" className="input h-16" required />
+                        <input type="password" name="password" placeholder="Enter your password" className="input h-16" required />
                         <div className="flex gap-2 mt-5">
                             <input className="w-6 h-6" type="checkbox" name="checked" id="" />
                             <p className="text-[#706F6F]">Accept <span className="font-semibold">Term & Conditions</span></p>
