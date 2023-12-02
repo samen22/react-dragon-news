@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar/Navbar";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
+
+    const {signIn} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleLogin = e =>{
         e.preventDefault();
@@ -11,7 +16,16 @@ const Login = () => {
         const password = form.get('password');
         console.log(email, password);
 
-        
+        // User sign in
+        signIn(email, password) 
+        .then(()=>{
+            console.log("You've logged out Successfully.");
+            e.target.reset();
+            navigate('/');
+        })
+        .catch(err =>{
+            console.log(err.message)
+        });
     };
 
     return (

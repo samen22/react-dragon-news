@@ -1,8 +1,24 @@
-import { Link, NavLink } from "react-router-dom";
-import user from "../../../../assets/user.png"
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import user_img from "../../../../assets/user_img.png"
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
+
+    // const navigate = useNavigate();
+
+    const handleSignOut = () =>{
+        logOut()
+        .then(()=>{
+            alert("You've logged out successfully");
+        })
+        .catch(err => {
+            console.error(err);
+        })
+
+    }
 
     const navLinks = <>
         <li className="text-lg text-[#706F6F]"><NavLink to={'/'}>Home</NavLink></li>
@@ -31,12 +47,17 @@ const Navbar = () => {
                 <div className="flex gap-2">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <img className="w-10 h-10" alt="" src={user}/>
+                            <img className="w-10 h-10" alt="" src={user_img} />
                         </div>
                     </label>
-                    <Link to={'/login'}>
-                        <button className="bg-[#403F3F] px-6 py-2 text-xl text-white font-semibold capitalize">Login</button>
-                    </Link>
+                    {
+                        user ?
+                            <Link to={'/login'}><button onClick={handleSignOut} className="bg-[#403F3F] px-6 py-2 text-xl text-white font-semibold capitalize">Log Out</button></Link>
+                            :
+                            <Link to={'/login'}>
+                                <button className="bg-[#403F3F] px-6 py-2 text-xl text-white font-semibold capitalize">Login</button>
+                            </Link>
+                    }
                 </div>
             </div>
         </div>
