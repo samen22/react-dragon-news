@@ -22,7 +22,8 @@ const router = createBrowserRouter([
             },
             {
                 path: '/news/:id',
-                element: <PrivateRoute><NewsDetails></NewsDetails></PrivateRoute>
+                element: <PrivateRoute><NewsDetails></NewsDetails></PrivateRoute>,
+                
             },
             {
                 path: '/login',
