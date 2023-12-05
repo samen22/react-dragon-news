@@ -1,19 +1,14 @@
-import { useEffect, useState } from "react";
 import Header from "../shared/Header/Header";
 import LeftSideNav from "../shared/LeftSideNav/LeftSideNav";
 import Navbar from "../shared/Navbar/Navbar";
 import RightSideNav from "../shared/RightSideNav/RightSideNav";
 import BreakingNews from "./BreakingNews";
 import DragonNews from "./DragonNews";
+import { useLoaderData } from "react-router-dom";
 
 const Home = () => {
-    const [dragonNews, setDragonNews] = useState([]);
-
-    useEffect( ()=>{
-        fetch('/data/news.json')
-        .then(res=> res.json())
-        .then(data => setDragonNews(data));
-    }, []);
+    const dragonNews = useLoaderData();
+    // console.log(dragonNews);
 
     return (
         <div>
@@ -26,11 +21,12 @@ const Home = () => {
                 </div>
                 <div className="md:col-span-2 p-4">
                     <h2 className="text-xl font-semibold text-[#403F3F] mb-5">Dragon News Home</h2>
-                    {
-                        dragonNews.map(news => <DragonNews key={news.id} news={news}></DragonNews>)
+                    { 
+                      Array.isArray(dragonNews)?  
+                      dragonNews.map(news => <DragonNews key={news._id} news={news}></DragonNews>) : <p>Dragon News is not available.</p>
                     }
                 </div>
-                <div className="">
+                <div>
                     <RightSideNav></RightSideNav>
                 </div>
             </div>

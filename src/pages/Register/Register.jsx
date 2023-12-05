@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar/Navbar";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -7,6 +7,7 @@ const Register = () => {
 
     const {createUser} = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
 
 
     const handleRegister = e =>{
@@ -25,7 +26,9 @@ const Register = () => {
         .then(result=>{
             console.log("You've registered successfully", result.user);
             e.target.reset();
-            navigate('/');
+            
+            // navigate to login after register
+            navigate('/login');
 
         })
         .then(error =>{
