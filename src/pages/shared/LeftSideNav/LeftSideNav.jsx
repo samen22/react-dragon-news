@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import img1 from '/public/assets/img1.png';
+import img2 from '/public/assets/img2.png';
+import img3 from '/public/assets/img3.png';
 import { NavLink } from "react-router-dom";
 import moment from 'moment';
 import { CiCalendar } from "react-icons/ci";
@@ -9,9 +12,18 @@ const LeftSideNav = () => {
 
 
     useEffect(() => {
-        fetch('/data/categories.json')
-            .then(res => res.json())
-            .then(data => setCategories(data));
+        const fetchData = async () => {
+            try {
+                const result = await fetch(`/data/categories.json`);
+                const data = await result.json(); 
+                setCategories(data);
+            }
+            catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     const navLinkStyles = ({ isActive }) => {
@@ -41,28 +53,28 @@ const LeftSideNav = () => {
                         </div>
                     </div>
                 </div> */}
-                <img className="mb-5 mt-7" src={'/assets/1.png'} alt="" />
+                <img className="mb-5 mt-7" src={img1} alt="" />
                 <h1 className="text-xl font-semibold text-[#403F3F] mb-5">Bayern Slams Authorities Over Flight Delay to Club World Cup</h1>
                 <div className="flex items-center">
                     <p className="text-[#403F3F] mr-5">Sports</p>
                     <p className="text-[#9F9F9F] mr-2 font-medium">
-                    <CiCalendar className="w-6 h-6" /></p>
+                        <CiCalendar className="w-6 h-6" /></p>
                     <p className="text-[#9F9F9F]">{moment().format('ll')}</p>
                 </div>
-                <img className="mb-5 mt-7" src={'/assets/2.png'} alt="" />
+                <img className="mb-5 mt-7" src={img2} alt="" />
                 <h1 className="text-xl font-semibold text-[#403F3F] mb-5">Bayern Slams Authorities Over Flight Delay to Club World Cup</h1>
                 <div className="flex items-center">
                     <p className="text-[#403F3F] mr-5">Sports</p>
                     <p className="text-[#9F9F9F] mr-2 font-medium">
-                    <CiCalendar className="w-6 h-6" /></p>
+                        <CiCalendar className="w-6 h-6" /></p>
                     <p className="text-[#9F9F9F]">{moment().format('ll')}</p>
                 </div>
-                <img className="mb-5 mt-7" src={'/assets/3.png'} alt="" />
+                <img className="mb-5 mt-7" src={img3} alt="" />
                 <h1 className="text-xl font-semibold text-[#403F3F] mb-5">Bayern Slams Authorities Over Flight Delay to Club World Cup</h1>
                 <div className="flex items-center">
                     <p className="text-[#403F3F] mr-5">Sports</p>
                     <p className="text-[#9F9F9F] mr-2 font-medium">
-                    <CiCalendar className="w-6 h-6" /></p>
+                        <CiCalendar className="w-6 h-6" /></p>
                     <p className="text-[#9F9F9F]">{moment().format('ll')}</p>
                 </div>
 

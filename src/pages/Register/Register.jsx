@@ -7,7 +7,7 @@ const Register = () => {
 
     const {createUser} = useContext(AuthContext);
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
 
 
     const handleRegister = e =>{
